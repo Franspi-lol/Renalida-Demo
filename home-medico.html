@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Renálida - Home Médico</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 5 -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- Bootstrap Icons (para iconitos en la barra inferior) -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+  >
+
+  <style>
+    :root {
+      --renalida-pink: #e78aa0;
+      --renalida-pink-soft: #fdf7f8;
+      --kdigo-low: #4caf50;
+      --kdigo-moderate: #ff9800;
+      --kdigo-high: #f44336;
+    }
+
+    body {
+      background-color: var(--renalida-pink-soft);
+      padding-bottom: 70px; /* espacio para la barra inferior */
+    }
+
+    .app-header {
+      background-color: var(--renalida-pink);
+      color: #fff;
+    }
+
+    .app-header-title {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .app-header-subtitle {
+      font-size: 0.85rem;
+      margin: 0;
+      opacity: 0.85;
+    }
+
+    .logo-renalida {
+      height: 32px;
+      width: auto;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    .badge-kdigo-low {
+      background-color: var(--kdigo-low);
+    }
+    .badge-kdigo-moderate {
+      background-color: var(--kdigo-moderate);
+    }
+    .badge-kdigo-high {
+      background-color: var(--kdigo-high);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #ffffff;
+      border-top: 1px solid #e0e0e0;
+      z-index: 1000;
+    }
+
+    .bottom-nav .nav-link {
+      font-size: 0.7rem;
+      color: #7a7a7a;
+    }
+
+    .bottom-nav .nav-link.active {
+      color: var(--renalida-pink);
+      font-weight: 600;
+    }
+
+    .bottom-nav i {
+      font-size: 1.2rem;
+    }
+
+    .pill-label {
+      font-size: 0.75rem;
+      color: #777;
+    }
+
+    .card-small {
+      border-radius: 0.75rem;
+    }
+
+    .list-group-item {
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER SUPERIOR -->
+  <header class="app-header py-2">
+    <div class="container d-flex align-items-center">
+      <img src="logo-renalida.png" alt="Renálida" class="logo-renalida me-2">
+      <div class="flex-grow-1">
+        <p class="app-header-title">Inicio del profesional</p>
+        <p class="app-header-subtitle">Dr. Juan Pérez · Nefrología</p>
+      </div>
+      <!-- opcional: icono de notificaciones -->
+      <i class="bi bi-bell"></i>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="container mt-3 mb-4">
+
+    <!-- RESUMEN DE ACTIVIDAD RECIENTE -->
+    <section class="mb-3">
+      <div class="card card-small shadow-sm border-0">
+        <div class="card-body">
+          <p class="section-title mb-1">Resumen de actividad reciente</p>
+          <p class="section-subtitle">
+            Acceso rápido a los últimos desarrollos de sus pacientes.
+          </p>
+
+          <!-- Últimas Hojas de Ruta Entrantes -->
+          <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-baseline">
+              <span class="pill-label">Últimas Hojas de Ruta Renal</span>
+              <a href="#" class="text-decoration-none" style="font-size: 0.75rem;">Ver todas</a>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                <div>
+                  <div style="font-size: 0.85rem;"><strong>Gómez, Ana</strong></div>
+                  <div style="font-size: 0.75rem; color:#777;">
+                    Hoja de Ruta Renal · Finalizada
+                  </div>
+                </div>
+                <span style="font-size: 0.75rem;">12/11/2025</span>
+              </li>
+              <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                <div>
+                  <div style="font-size: 0.85rem;"><strong>López, Carlos</strong></div>
+                  <div style="font-size: 0.75rem; color:#777;">
+                    Hoja de Ruta Renal · En revisión
+                  </div>
+                </div>
+                <span style="font-size: 0.75rem;">10/11/2025</span>
+              </li>
+              <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                <div>
+                  <div style="font-size: 0.85rem;"><strong>Martínez, Julia</strong></div>
+                  <div style="font-size: 0.75rem; color:#777;">
+                    Hoja de Ruta Renal · Pendiente firma
+                  </div>
+                </div>
+                <span style="font-size: 0.75rem;">08/11/2025</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Estado de últimos pacientes -->
+          <div>
+            <div class="d-flex justify-content-between align-items-baseline">
+              <span class="pill-label">Estado de los últimos pacientes</span>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item px-0">
+                <div class="d-flex flex-column">
+                  <span style="font-size: 0.85rem;"><strong>Gómez, Ana</strong></span>
+                  <span style="font-size: 0.75rem; color:#777;">
+                    Estado: Mapeo finalizado · Aguardando turno Nefrología
+                  </span>
+                </div>
+              </li>
+              <li class="list-group-item px-0">
+                <div class="d-flex flex-column">
+                  <span style="font-size: 0.85rem;"><strong>López, Carlos</strong></span>
+                  <span style="font-size: 0.75rem; color:#777;">
+                    Estado: Aguardando turno Cardiólogo
+                  </span>
+                </div>
+              </li>
+              <li class="list-group-item px-0">
+                <div class="d-flex flex-column">
+                  <span style="font-size: 0.85rem;"><strong>Martínez, Julia</strong></span>
+                  <span style="font-size: 0.75rem; color:#777;">
+                    Estado: Primera evaluación completada
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTADO DE PACIENTES -->
+    <section>
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <p class="section-title mb-0">Pacientes</p>
+        <a href="#" style="font-size: 0.75rem;" class="text-decoration-none">Ver todos</a>
+      </div>
+
+      <!-- Paciente 1 -->
+      <div class="card card-small mb-2 shadow-sm border-0">
+        <div class="card-body py-2 px-3">
+          <div class="d-flex justify-content-between">
+            <div>
+              <div style="font-size: 0.9rem;"><strong>Gómez, Ana</strong></div>
+              <div style="font-size: 0.75rem; color:#777;">
+                Estado: Mapeo finalizado
+              </div>
+            </div>
+            <div class="text-end">
+              <span class="badge rounded-pill badge-kdigo-high text-white mb-1">
+                Riesgo alto KDIGO
+              </span>
+              <div style="font-size: 0.7rem; color:#777;">Últ. actualización: 12/11/2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paciente 2 -->
+      <div class="card card-small mb-2 shadow-sm border-0">
+        <div class="card-body py-2 px-3">
+          <div class="d-flex justify-content-between">
+            <div>
+              <div style="font-size: 0.9rem;"><strong>López, Carlos</strong></div>
+              <div style="font-size: 0.75rem; color:#777;">
+                Estado: Aguardando turno Cardiólogo
+              </div>
+            </div>
+            <div class="text-end">
+              <span class="badge rounded-pill badge-kdigo-moderate text-white mb-1">
+                Riesgo moderado KDIGO
+              </span>
+              <div style="font-size: 0.7rem; color:#777;">Últ. actualización: 10/11/2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paciente 3 -->
+      <div class="card card-small mb-2 shadow-sm border-0">
+        <div class="card-body py-2 px-3">
+          <div class="d-flex justify-content-between">
+            <div>
+              <div style="font-size: 0.9rem;"><strong>Martínez, Julia</strong></div>
+              <div style="font-size: 0.75rem; color:#777;">
+                Estado: Primera evaluación completada
+              </div>
+            </div>
+            <div class="text-end">
+              <span class="badge rounded-pill badge-kdigo-low text-white mb-1">
+                Riesgo bajo KDIGO
+              </span>
+              <div style="font-size: 0.7rem; color:#777;">Últ. actualización: 08/11/2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- acá podés seguir agregando más pacientes... -->
+
+    </section>
+
+  </main>
+
+  <!-- BARRA DE NAVEGACIÓN INFERIOR -->
+  <nav class="bottom-nav">
+    <div class="container">
+      <div class="nav d-flex justify-content-around text-center py-1">
+        <a href="#" class="nav-link active">
+          <i class="bi bi-house-door-fill"></i><br>
+          Home
+        </a>
+        <a href="#" class="nav-link">
+          <i class="bi bi-people-fill"></i><br>
+          Pacientes
+        </a>
+        <a href="#" class="nav-link">
+          <i class="bi bi-calculator-fill"></i><br>
+          Calculadora Renal
+        </a>
+        <a href="#" class="nav-link">
+          <i class="bi bi-newspaper"></i><br>
+          Noticias
+        </a>
+        <a href="#" class="nav-link">
+          <i class="bi bi-person-circle"></i><br>
+          Perfil
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- JS de Bootstrap (por si después agregás modales, etc.) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
