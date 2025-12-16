@@ -104,6 +104,33 @@
       font-size: 1.8rem !important;
       color: #fff;
     }
+    @media (max-width: 500px) {
+      .bottom-nav {
+        
+        
+        z-index: 1000;
+        
+      }
+       main {
+        order: 2;
+        flex: 1;
+      }
+      
+      .bottom-nav .nav-link br {
+        display: none;
+      }
+      .bottom-nav .nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        width: 20%;
+        height: 20%;
+      }
+      .bottom-nav .nav {
+        justify-content: center !important;
+      }
+    }
   </style>
 </head>
 
