@@ -61,24 +61,60 @@
     .bottom-nav {
       position: fixed;
       bottom: 0;
-      left: 0; right: 0;
-      background: white;
-      border-top: 1px solid #ccc;
-      z-index: 100;
+      left: 0;
+      right: 0;
+      background-color: #ffffff;
+      border-top: 1px solid #e0e0e0;
+      z-index: 1000;
     }
 
     .bottom-nav .nav-link {
-      color: #777;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
+      color: #7a7a7a;
     }
 
     .bottom-nav .nav-link.active {
       color: var(--renalida-pink);
-      font-weight: bold;
+      font-weight: 600;
     }
 
     .bottom-nav i {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+    }
+
+    .pill-label {
+      font-size: 0.75rem;
+      color: #777;
+    }
+
+    .card-small {
+      border-radius: 0.75rem;
+    }
+
+    .list-group-item {
+      font-size: 0.85rem;
+    }
+
+    /* Estilos para el botón central destacado (Calculadora) */
+    .nav-link-highlight {
+      overflow: visible;
+    }
+    .fab-circle {
+      width: 52px;
+      height: 52px;
+      background-color: var(--renalida-pink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: -35px auto 2px; /* Lo subimos para que sobresalga */
+      border: 4px solid #fff; /* Borde blanco para integrarse con el nav */
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      color: #fff;
+    }
+    .fab-circle i {
+      font-size: 1.8rem !important;
+      color: #fff;
     }
   </style>
 </head>
@@ -230,25 +266,27 @@
   <nav class="bottom-nav">
     <div class="container">
       <div class="nav d-flex justify-content-around text-center py-1">
-
         <a href="home-medico.html" class="nav-link">
-          <i class="bi bi-house-door-fill"></i><br>Home
+          <i class="bi bi-house-door-fill"></i><br>
+          Home
         </a>
-
         <a href="pacientes.html" class="nav-link">
-          <i class="bi bi-people-fill"></i><br>Pacientes
+          <i class="bi bi-people-fill"></i><br>
+          Mis Pacientes
         </a>
-
-        <a href="calculadora-renal.html" class="nav-link active">
-          <i class="bi bi-calculator-fill"></i><br>Calculadora
+        <a href="calculadora-renal.html" class="nav-link nav-link-highlight">
+          <div class="fab-circle">
+            <i class="bi bi-plus-lg"></i>
+          </div>
+          Calcular y Derivar
         </a>
-
         <a href="noticias.html" class="nav-link">
-          <i class="bi bi-newspaper"></i><br>Noticias
+          <i class="bi bi-newspaper"></i><br>
+          Noticias
         </a>
-
         <a href="perfil.html" class="nav-link">
-          <i class="bi bi-person-circle"></i><br>Perfil
+          <i class="bi bi-person-circle"></i><br>
+          Perfil
         </a>
       </div>
     </div>

@@ -91,6 +91,27 @@
       color: #aaa;
       font-size: 0.8rem;
     }
+
+    .nav-link-highlight {
+      overflow: visible;
+    }
+    .fab-circle {
+      width: 52px;
+      height: 52px;
+      background-color: var(--renalida-pink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: -35px auto 2px; /* Lo subimos para que sobresalga */
+      border: 4px solid #fff; /* Borde blanco para integrarse con el nav */
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      color: #fff;
+    }
+    .fab-circle i {
+      font-size: 1.8rem !important;
+      color: #fff;
+    }
   </style>
 </head>
 
@@ -305,27 +326,24 @@
   <nav class="bottom-nav">
     <div class="container">
       <div class="nav d-flex justify-content-around text-center py-1">
-
         <a href="home-medico.html" class="nav-link">
           <i class="bi bi-house-door-fill"></i><br>
           Home
         </a>
-
         <a href="pacientes.html" class="nav-link">
           <i class="bi bi-people-fill"></i><br>
-          Pacientes
+          Mis Pacientes
         </a>
-
-        <a href="calculadora-renal.html" class="nav-link">
-          <i class="bi bi-calculator-fill"></i><br>
-          Calculadora
+        <a href="calculadora-renal.html" class="nav-link nav-link-highlight">
+          <div class="fab-circle">
+            <i class="bi bi-plus-lg"></i>
+          </div>
+          Calcular y Derivar
         </a>
-
         <a href="noticias.html" class="nav-link">
           <i class="bi bi-newspaper"></i><br>
           Noticias
         </a>
-
         <a href="perfil.html" class="nav-link active">
           <i class="bi bi-person-circle"></i><br>
           Perfil
