@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Renálida - Términos y Condiciones</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --renalida-pink: #e78aa0;
+      --renalida-pink-soft: #fdf7f8;
+    }
+
+    body {
+      background-color: var(--renalida-pink-soft);
+      padding-bottom: 20px;
+    }
+
+    .app-header {
+      background-color: var(--renalida-pink);
+      color: white;
+    }
+
+    .logo-renalida {
+      height: 32px;
+      width: auto;
+    }
+
+    .card-small {
+      border-radius: 0.75rem;
+      border: none;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--renalida-pink);
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #555;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="app-header sticky-top shadow-sm">
+  <div class="container d-flex justify-content-between align-items-center p-3">
+    <a href="home-medico.html" class="text-white"><i class="bi bi-chevron-left"></i></a>
+    <img src="logo-renalida.png" alt="Renálida" class="logo-renalida">
+    <a href="#" class="text-white"><i class="bi bi-bell"></i></a>
+  </div>
+</header>
+
+<div class="container mt-4">
+    <div class="card card-small p-4">
+        <h1>TÉRMINOS Y CONDICIONES DE USO</h1>
+        <p class="section-subtitle">APLICACIÓN PUENTE PNA-RENÁLIDA<br>(Para médicos de atención primaria)<br>Versión preliminar para revisión</p>
+
+        <h2 class="section-title">1. OBJETIVO DE LA APLICACIÓN</h2>
+        <p>La aplicación puente Renálida-PNA es una herramienta de apoyo clínico diseñada para:</p>
+        <ul>
+            <li>Facilitar la detección precoz de la enfermedad renal crónica (ERC) en entornos de atención primaria.</li>
+            <li>Integrar los resultados de laboratorio (creatinina sérica y relación albúmina-creatinina en orina, uACR) solicitados previamente por el médico en laboratorios interoperables.</li>
+            <li>Calcular automáticamente la TFGe (CKD-EPI 2021) y estratificar el riesgo renal según KDIGO.</li>
+            <li>Generar derivaciones estructuradas al programa Renálida bajo protocolos estandarizados.</li>
+        </ul>
+
+        <h2 class="section-title mt-4">2. NATURALEZA DE LA HERRAMIENTA</h2>
+        <p>La aplicación es un sistema de apoyo a la toma de decisiones clínicas.<br>No sustituye el criterio profesional del médico, que sigue siendo plenamente responsable de las decisiones y las indicaciones clínicas.</p>
+
+        <h2 class="section-title mt-4">3. REQUISITOS DE USO</h2>
+        <p>El médico declara que:</p>
+        <ul>
+            <li>Es un profesional sanitario titulado y autorizado para solicitar pruebas de laboratorio.</li>
+            <li>Entiende que la aplicación puede recuperar automáticamente los resultados de laboratorios interoperables y que, cuando los estudios proceden de laboratorios no integrados, puede introducir estos resultados manualmente bajo su responsabilidad profesional.</li>
+            <li>Entiende que la aplicación recupera exclusivamente los valores necesarios para la detección de la ERC: creatinina sérica, uACR y, cuando procede, proteinuria/albuminuria.</li>
+        </ul>
+
+        <h2 class="section-title mt-4">4. INTEROPERABILIDAD CON LABORATORIOS LOCALES</h2>
+        <p>La aplicación utiliza un mensaje HL7 estandarizado, el estándar es compatible con cualquier laboratorio, nacional o internacional, que implemente HL7 v2.x o FHIR-Lab mediante la integración con servidores Mirth/NextGen o sistemas equivalentes.</p>
+        <p><strong>Acceso controlado a los datos.</strong><br>La interoperabilidad solo está habilitada cuando:</p>
+        <ul>
+            <li>El médico ha solicitado una prueba al laboratorio.</li>
+            <li>El laboratorio está registrado en la red interoperable.</li>
+            <li>El paciente ha dado su consentimiento clínico para el uso de sus datos.</li>
+        </ul>
+        <p>La aplicación no accede a pruebas no solicitadas por el médico, ni a datos no relacionados con la función renal.<br>Su finalidad es exclusivamente preventiva y clínica, en consonancia con los principios de minimización y proporcionalidad de los datos.</p>
+
+        <h2 class="section-title mt-4">5. DATOS RECUPERADOS Y CALCULADOS</h2>
+        <p>La aplicación solo accede a lo siguiente:</p>
+        <ul>
+            <li>Creatinina sérica (valor, unidad y fecha)</li>
+            <li>uACR (valor, unidad y fecha)</li>
+            <li>Proteinuria/albuminuria en 24 horas, si está disponible</li>
+        </ul>
+        <p>A partir de estos datos, la aplicación calcula automáticamente:</p>
+        <ul>
+            <li>Edad (derivada de la fecha de nacimiento)</li>
+            <li>eGFR (CKD-EPI 2021)</li>
+            <li>Categoría G (G1-G5)</li>
+            <li>Categoría A (A1-A3), cuando se dispone de albuminuria</li>
+            <li>Mapa de riesgo KDIGO G×A</li>
+        </ul>
+
+        <h2 class="section-title mt-4">6. DERIVACIÓN A RENÁLIDA</h2>
+        <p>Solo el médico puede iniciar una derivación.<br>La aplicación genera una solicitud de servicio digital y una tarea dirigida al sistema de gestión de Renálida, que se utiliza exclusivamente para:</p>
+        <ul>
+            <li>Evaluación del riesgo renal.</li>
+            <li>Inicio del proceso de mapeo renal.</li>
+            <li>Comunicación entre Renálida y el médico que realiza la derivación.</li>
+        </ul>
+        <p>El médico debe marcar una casilla de consentimiento informado simplificado para confirmar que el paciente está de acuerdo con la derivación.</p>
+
+        <h2 class="section-title mt-4">7. PROTECCIÓN DE DATOS PERSONALES (LEY ARGENTINA 25.326)</h2>
+        <p>La aplicación cumple con los principios de la Ley 25.326:</p>
+        <p><strong>Finalidad</strong><br>Los datos se utilizan exclusivamente para la prevención, el diagnóstico y el tratamiento clínico de la ERC.</p>
+        <p><strong>Minimización de datos</strong><br>La aplicación solo accede a lo estrictamente necesario para:</p>
+        <ul>
+            <li>Calcular la TFGe.</li>
+            <li>Determinar la albuminuria.</li>
+            <li>Estimar el riesgo renal.</li>
+            <li>Generar derivaciones clínicas.</li>
+        </ul>
+        <p><strong>Consentimiento</strong><br>El médico garantiza que el paciente ha dado su consentimiento clínico previo para el uso de sus datos de laboratorio.</p>
+        <p><strong>Seguridad</strong><br>Los datos se transmiten a través de protocolos cifrados (TLS) y se almacenan de forma segura en el sistema de gestión Renálida.</p>
+        <p><strong>Acceso restringido</strong><br>Solo el personal clínico autorizado puede acceder a los datos de los pacientes.</p>
+        <p><strong>No discriminación</strong><br>La aplicación no se utilizará con fines comerciales, de seguros, de cobertura, de puntuación ni con ningún otro fin no clínico.</p>
+
+        <h2 class="section-title mt-4">8. RIESGOS ÉTICOS Y MITIGACIONES</h2>
+        <p>La aplicación evita dilemas éticos mediante:</p>
+        <ul>
+            <li>Ausencia de vigilancia: nunca se obtienen datos sin una orden médica previa.</li>
+            <li>Ausencia de automatización excesiva: el médico siempre toma la decisión final de derivar al paciente.</li>
+            <li>Ausencia de invasión de la privacidad: la aplicación solo accede a variables seleccionadas y clínicamente justificadas.</li>
+            <li>Transparencia: todos los usos permitidos y prohibidos se indican explícitamente.</li>
+        </ul>
+        <p>Su objetivo es apoyar la detección temprana y reducir la carga de la «enfermedad renal oculta», no supervisar ni penalizar.</p>
+
+        <h2 class="section-title mt-4">9. PROPIEDAD INTELECTUAL Y LICENCIA</h2>
+        <p>Este desarrollo es el resultado de una colaboración técnica entre Renálida y el Hospital Italiano de Buenos Aires, dentro del programa ISN-SRC Nivel B, utilizando fondos asignados para la formación y el desarrollo tecnológico.<br>Cualquier reproducción, adaptación o redistribución requiere la autorización de las instituciones involucradas.</p>
+
+        <h2 class="section-title mt-4">10. ALINEACIÓN INTERNACIONAL</h2>
+        <p>Esta aplicación contribuye directamente a:</p>
+        <ul>
+            <li>Resolución WHA77.18 de la OMS (Guatemala, 2024): este desarrollo promueve la integración de la salud renal en la atención primaria y especialidades, la detección precoz, el fortalecimiento de los sistemas de información sanitaria, la vigilancia y equidad.</li>
+            <li>Directrices KDIGO: estratificación G/A y toma de decisiones basada en el riesgo.</li>
+            <li>Objetivos globales de reducción de la progresión de la ERC: transformar los laboratorios en sensores de riesgo renal a nivel poblacional.</li>
+        </ul>
+
+        <h2 class="section-title mt-4">11. ACEPTACIÓN DEL MÉDICO</h2>
+        <p>Al descargar y utilizar la aplicación, el médico declara que:</p>
+        <ul>
+            <li>Entiende el propósito preventivo y clínico del sistema.</li>
+            <li>Acepta estos Términos y condiciones.</li>
+            <li>Se compromete a respetar la privacidad y el consentimiento del paciente.</li>
+            <li>Utilizará la herramienta para reforzar la detección y el tratamiento precoz de la ERC.</li>
+        </ul>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
