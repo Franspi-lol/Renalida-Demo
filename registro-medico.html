@@ -225,8 +225,8 @@
         <!-- Términos -->
         <div class="form-check my-2">
           <input class="form-check-input" type="checkbox" id="terminos" required>
-          <label class="form-check-label" for="terminos">
-            Acepto los términos y condiciones.
+          <label class="form-check-label" for="terminos" id="labelTerminos">
+            <a href="Terminos.html" target="_blank" id="textoTerm">Acepto los términos y condiciones.</a>
           </label>
         </div>
 
@@ -256,6 +256,13 @@
     const strengthText = document.getElementById('passStrengthText');
     const passwordConfirm = document.getElementById('passwordConfirm');
     const passwordMatchText = document.getElementById('passwordMatchText');
+
+    const terminos = document.getElementById('terminos');
+    const labelTerminos = document.getElementById('labelTerminos');
+    labelTerminos.disabled = false;
+    terminos.disabled = true;
+
+    
 
     // Inicializar tooltips
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -300,6 +307,11 @@
       }
     });
 
+    labelTerminos.addEventListener('click', function(event) {
+      terminos.disabled = false;
+    });
+
+
     // Lógica de coincidencia de contraseñas en tiempo real
     function checkPasswordMatch() {
       const val1 = password.value;
@@ -327,12 +339,16 @@
     passwordConfirm.addEventListener('input', checkPasswordMatch);
     password.addEventListener('input', checkPasswordMatch);
 
+
+
     form.addEventListener('submit', function (e) {
       if (password.value !== passwordConfirm.value) {
         e.preventDefault();
         alert('Las contraseñas no coinciden.');
       }
     });
+
+
   </script>
 </body>
 </html>
