@@ -116,7 +116,7 @@
           <input type="text" class="form-control" id="dni" required>
         </div>
 
-        <!-- 📱 Teléfono con País + Área + Número -->
+        <!--  Teléfono con País + Área + Número -->
         <div class="mb-3">
           <label class="form-label">Teléfono de contacto</label>
 
@@ -182,7 +182,15 @@
 
         <!-- Contraseña -->
         <div class="mb-3">
-          <label for="password" class="form-label">Contraseña</label>
+          <label for="password" class="form-label d-flex align-items-center">
+            Contraseña
+            <span class="ms-2 text-muted" data-bs-toggle="tooltip" data-bs-placement="top" title="La contraseña debe estar en 'Fuerte y segura' para ser válida. Debe tener mayúscula, minúscula, número y carácter especial." style="cursor: pointer;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+              </svg>
+            </span>
+          </label>
           <input
             type="password"
             class="form-control"
@@ -192,12 +200,18 @@
             pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}"
             title="Debe tener mayúscula, minúscula, número y carácter especial."
           >
+          <!-- Barra de fuerza de contraseña -->
+          <div class="progress mt-2" style="height: 6px;">
+            <div id="passStrengthBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+          </div>
+          <small id="passStrengthText" class="text-muted" style="font-size: 0.75rem;">Ingrese su contraseña</small>
         </div>
 
         <!-- Confirmación -->
         <div class="mb-3">
           <label for="passwordConfirm" class="form-label">Confirmar contraseña</label>
           <input type="password" class="form-control" id="passwordConfirm" required>
+          <small id="passwordMatchText" class="text-muted" style="font-size: 0.75rem;"></small>
         </div>
 
         <!-- Firma -->
@@ -238,7 +252,80 @@
   <script>
     const form = document.getElementById('form-registro');
     const password = document.getElementById('password');
+    const strengthBar = document.getElementById('passStrengthBar');
+    const strengthText = document.getElementById('passStrengthText');
     const passwordConfirm = document.getElementById('passwordConfirm');
+    const passwordMatchText = document.getElementById('passwordMatchText');
+
+    // Inicializar tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+    // Lógica de fuerza de contraseña
+    password.addEventListener('input', function() {
+      const val = password.value;
+      let strength = 0;
+      
+      // Criterios
+      const hasLower = /[a-z]/.test(val);
+      const hasUpper = /[A-Z]/.test(val);
+      const hasNumber = /\d/.test(val);
+      const hasSpecial = /[\W_]/.test(val);
+      const hasLength = val.length >= 8;
+
+      // Sumar puntos
+      if (hasLower) strength++;
+      if (hasUpper) strength++;
+      if (hasNumber) strength++;
+      if (hasSpecial) strength++;
+      if (hasLength) strength++;
+
+      // Calcular porcentaje (0 a 100%)
+      const percentage = (strength / 5) * 100;
+      
+      // Actualizar barra
+      strengthBar.style.width = percentage + '%';
+      
+      // Colores y texto
+      strengthBar.className = 'progress-bar'; // Reset clases
+      if (strength < 3) {
+        strengthBar.classList.add('bg-danger');
+        strengthText.textContent = 'Débil (Faltan requisitos)';
+      } else if (strength < 5) {
+        strengthBar.classList.add('bg-warning');
+        strengthText.textContent = 'Media';
+      } else {
+        strengthBar.classList.add('bg-success');
+        strengthText.textContent = 'Fuerte y segura';
+      }
+    });
+
+    // Lógica de coincidencia de contraseñas en tiempo real
+    function checkPasswordMatch() {
+      const val1 = password.value;
+      const val2 = passwordConfirm.value;
+
+      if (val2 === '') {
+        passwordMatchText.textContent = '';
+        passwordConfirm.classList.remove('is-valid', 'is-invalid');
+        return;
+      }
+
+      if (val1 === val2) {
+        passwordMatchText.textContent = 'Las contraseñas coinciden';
+        passwordMatchText.className = 'text-success';
+        passwordConfirm.classList.remove('is-invalid');
+        passwordConfirm.classList.add('is-valid');
+      } else {
+        passwordMatchText.textContent = 'Las contraseñas no coinciden';
+        passwordMatchText.className = 'text-danger';
+        passwordConfirm.classList.remove('is-valid');
+        passwordConfirm.classList.add('is-invalid');
+      }
+    }
+
+    passwordConfirm.addEventListener('input', checkPasswordMatch);
+    password.addEventListener('input', checkPasswordMatch);
 
     form.addEventListener('submit', function (e) {
       if (password.value !== passwordConfirm.value) {
