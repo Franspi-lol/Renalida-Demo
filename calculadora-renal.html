@@ -224,9 +224,9 @@
           <p><strong>Riesgo:</strong> <span id="badgeRiesgo" class="badge"></span></p>
 
           <div id="motivoDerivacionWrapper" class="mb-2 d-none">
-            <label class="form-label">Motivo de derivación</label>
+            <label class="form-label"><strong>El paciente no presenta un riesgo elevado, elija motivo para derivación</strong></label>
             <select id="motivoDerivacion" class="form-select form-select-sm">
-              <option value="">Seleccione motivo...</option>
+              <option value=""><strong>Seleccione motivo...</strong></option>
               <option value="proteinuria">Proteinuria significativa</option>
               <option value="hta">Hipertensión resistente</option>
               <option value="hematuria">Hematuria persistente</option>
@@ -234,13 +234,14 @@
               <option value="criterio">Criterio clínico</option>
             </select>
           </div>
+          <br>
 
           <div class="form-check mb-2">
             <input class="form-check-input" id="chkConsentimiento" type="checkbox">
             <label class="form-check-label">
-              <a href="terminos.docx" target="_blank" class="btn btn-outline-primary btn-sm" download="Terminos y condiciones.pdf">
+              
               Consentimiento del paciente otorgado.
-              </a>
+              
             </label>
           </div>
 

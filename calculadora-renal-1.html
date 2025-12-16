@@ -53,27 +53,68 @@
       border-radius: 0.75rem;
     }
 
+    .pill-label {
+      font-size: 0.75rem;
+      color: #777;
+    }
+
     .bottom-nav {
       position: fixed;
       bottom: 0;
-      left: 0; right: 0;
-      background: white;
-      border-top: 1px solid #ccc;
-      z-index: 100;
+      left: 0;
+      right: 0;
+      background-color: #ffffff;
+      border-top: 1px solid #e0e0e0;
+      z-index: 1000;
     }
 
     .bottom-nav .nav-link {
-      color: #777;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
+      color: #7a7a7a;
     }
 
     .bottom-nav .nav-link.active {
       color: var(--renalida-pink);
-      font-weight: bold;
+      font-weight: 600;
     }
 
     .bottom-nav i {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+    }
+
+    .pill-label {
+      font-size: 0.75rem;
+      color: #777;
+    }
+
+    .card-small {
+      border-radius: 0.75rem;
+    }
+
+    .list-group-item {
+      font-size: 0.85rem;
+    }
+
+    /* Estilos para el botón central destacado (Calculadora) */
+    .nav-link-highlight {
+      overflow: visible;
+    }
+    .fab-circle {
+      width: 52px;
+      height: 52px;
+      background-color: var(--renalida-pink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: -35px auto 2px; /* Lo subimos para que sobresalga */
+      border: 4px solid #fff; /* Borde blanco para integrarse con el nav */
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      color: #fff;
+    }
+    .fab-circle i {
+      font-size: 1.8rem !important;
+      color: #fff;
     }
   </style>
 </head>
@@ -152,39 +193,32 @@
     <div class="card card-small shadow-sm border-0 mb-3">
       <div class="card-body">
         <div class="step-label">Paso 2 · Cálculo del riesgo</div>
-        <p class="section-subtitle">
-          Valores ingresados para el cálculo de CKD-EPI.
-        </p>
+        <p class="section-subtitle">Ingrese la creatinina para estimar el riesgo renal.</p>
 
         <div class="row g-2 mb-2">
           <div class="col-6">
             <label class="form-label">Creatinina (mg/dL)</label>
-            <input
-              class="form-control form-control-sm"
-              value="66"
-              disabled>
+            <input id="creatininaInput" type="number" min="0" step="0.01" class="form-control form-control-sm" disabled>
           </div>
           <div class="col-6">
-            <label class="form-label">Fecha del análisis</label>
-            <!-- 5/9/2025 => 2025-09-05 en input date -->
-            <input
-              type="date"
-              class="form-control form-control-sm"
-              value="2025-09-05"
-              disabled
-              required>
+            <label class="form-label">Fecha análisis</label>
+            <input id="fechaAnalisisInput" type="date" class="form-control form-control-sm" disabled required>
           </div>
         </div>
 
-        <div class="alert alert-light border mt-3 mb-0">
-          <p class="mb-1"><strong>Resultado CKD-EPI (ejemplo)</strong></p>
-          <p class="mb-1">
-            eGFR estimado: <strong>5</strong> mL/min/1,73m²
-          </p>
-          <p class="mb-0">
-            Clasificación: <strong>Riesgo elevado (derivación preferente)</strong>
-          </p>
+        <button id="btnCalcularRiesgo" class="btn btn-primary btn-sm" disabled>
+          Calcular riesgo
+        </button>
+
+
+        <div id="resultadoRiesgo" class="mt-3 d-none">
+          <div class="alert alert-light border">
+            <p class="mb-1"><strong>Resultado CKD-EPI (mock)</strong></p>
+            <p class="mb-1">eGFR estimado: <strong id="eGfrValor"></strong> mL/min</p>
+            <p>Clasificación: <strong id="riesgoTexto"></strong></p>
+          </div>
         </div>
+
       </div>
     </div>
 
@@ -192,34 +226,47 @@
     <div class="card card-small shadow-sm border-0">
       <div class="card-body">
         <div class="step-label">Paso 3 · Derivación</div>
-        <p class="section-subtitle">
-          Ejemplo de paciente con riesgo elevado y derivación directa.
-        </p>
+        <p class="section-subtitle">Derive el paciente a Renálida según riesgo.</p>
 
-        <p class="mb-2">
-          <strong>Riesgo:</strong>
-          <span class="badge bg-danger ms-1">Riesgo Elevado</span>
-        </p>
+        <div id="bloqueDerivacion" class="d-none">
 
-        <div class="form-check mb-2">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            checked
-            disabled
-            id="consentEjemplo">
-          <label class="form-check-label" for="consentEjemplo">
-            Consentimiento del paciente registrado.
-          </label>
+          <p><strong>Riesgo:</strong> <span id="badgeRiesgo" class="badge"></span></p>
+
+          <div id="motivoDerivacionWrapper" class="mb-2 d-none">
+            <label class="form-label">Motivo de derivación</label>
+            <select id="motivoDerivacion" class="form-select form-select-sm">
+              <option value="">Seleccione motivo...</option>
+              <option value="proteinuria">Proteinuria significativa</option>
+              <option value="hta">Hipertensión resistente</option>
+              <option value="hematuria">Hematuria persistente</option>
+              <option value="progresion">Progresión rápida</option>
+              <option value="criterio">Criterio clínico</option>
+            </select>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" id="chkConsentimiento" type="checkbox">
+            <label class="form-check-label">
+              <a href="terminos.docx" target="_blank" class="btn btn-outline-primary btn-sm" download="Terminos y condiciones.pdf">
+              Consentimiento del paciente otorgado.
+              </a>
+            </label>
+          </div>
+
+          <button id="btnDerivar" class="btn btn-success btn-sm" disabled>
+            Derivar a Renálida
+          </button>
+
+          <div id="mensajeDerivacion" class="alert alert-success mt-2 d-none">
+            Derivación registrada. Ticket: <strong id="ticketNumero"></strong>
+          </div>
+
         </div>
 
-        <button class="btn btn-success btn-sm" disabled>
-          Derivar a Renálida
-        </button>
-
-        <div class="alert alert-success mt-2 mb-0 py-2 px-3" style="font-size:0.85rem;">
-          Derivación generada (ejemplo). Ticket: <strong>REN-123456</strong>.
+        <div id="mensajeDerivacionPendiente" class="text-muted">
+          Calcule el riesgo renal para habilitar las opciones.
         </div>
+
       </div>
     </div>
 
@@ -229,27 +276,24 @@
   <nav class="bottom-nav">
     <div class="container">
       <div class="nav d-flex justify-content-around text-center py-1">
-
         <a href="home-medico.html" class="nav-link">
           <i class="bi bi-house-door-fill"></i><br>
           Home
         </a>
-
         <a href="pacientes.html" class="nav-link">
           <i class="bi bi-people-fill"></i><br>
-          Pacientes
+          Mis Pacientes
         </a>
-
-        <a href="calculadora-renal.html" class="nav-link">
-          <i class="bi bi-calculator-fill"></i><br>
-          Calculadora
+        <a href="calculadora-renal.html" class="nav-link nav-link-highlight">
+          <div class="fab-circle">
+            <i class="bi bi-plus-lg"></i>
+          </div>
+          Calcular y Derivar
         </a>
-
         <a href="noticias.html" class="nav-link">
           <i class="bi bi-newspaper"></i><br>
           Noticias
         </a>
-
         <a href="perfil.html" class="nav-link">
           <i class="bi bi-person-circle"></i><br>
           Perfil
@@ -257,6 +301,95 @@
       </div>
     </div>
   </nav>
+
+<script>
+    
+
+    const btnBuscarPaciente = document.getElementById('btnBuscarPaciente');
+    const infoPaciente = document.getElementById('infoPaciente');
+    const infoPacienteMensaje = document.getElementById('infoPacienteMensaje');
+    const nombrePaciente = document.getElementById('nombrePaciente');
+    const apellidoPaciente = document.getElementById('apellidoPaciente');
+    const fechaNacimientoPaciente = document.getElementById('fechaNacimientoPaciente');
+    const sexoPaciente = document.getElementById('sexoPaciente');
+
+    const creatininaInput = document.getElementById('creatininaInput');
+    const fechaAnalisisInput = document.getElementById('fechaAnalisisInput');
+    const btnCalcularRiesgo = document.getElementById('btnCalcularRiesgo');
+
+    const resultadoRiesgo = document.getElementById('resultadoRiesgo');
+    const eGfrValor = document.getElementById('eGfrValor');
+    const riesgoTexto = document.getElementById('riesgoTexto');
+
+    const bloqueDerivacion = document.getElementById('bloqueDerivacion');
+    const badgeRiesgo = document.getElementById('badgeRiesgo');
+    const motivoDerivacionWrapper = document.getElementById('motivoDerivacionWrapper');
+    const motivoDerivacion = document.getElementById('motivoDerivacion');
+    const chkConsentimiento = document.getElementById('chkConsentimiento');
+    const btnDerivar = document.getElementById('btnDerivar');
+    const mensajeDerivacion = document.getElementById('mensajeDerivacion');
+    const ticketNumero = document.getElementById('ticketNumero');
+    const mensajeDerivacionPendiente = document.getElementById('mensajeDerivacionPendiente');
+
+    let ultimoRiesgo = null;
+
+    // Búsqueda mock
+    fechaAnalisisInput.disabled = false;
+    creatininaInput.disabled = false;
+
+    fechaAnalisisInput.addEventListener('change', () => {
+      btnCalcularRiesgo.disabled = false;
+    });
+
+    // Cálculo mock
+    btnCalcularRiesgo.addEventListener('click', () => {
+      const crea = parseFloat(creatininaInput.value);
+      if (!crea || crea <= 0) return alert("Ingrese creatinina válida");
+
+      let eGfr = Math.max(5, Math.min(120, Math.round(120 - crea * 20)));
+      eGfrValor.textContent = eGfr;
+
+      resultadoRiesgo.classList.remove("d-none");
+      mensajeDerivacionPendiente.classList.add("d-none");
+      bloqueDerivacion.classList.remove("d-none");
+
+      if (eGfr < 60) {
+        ultimoRiesgo = "elevado";
+        badgeRiesgo.textContent = "Riesgo Elevado";
+        badgeRiesgo.className = "badge bg-danger";
+        motivoDerivacionWrapper.classList.add("d-none");
+      } else {
+        ultimoRiesgo = "no-elevado";
+        badgeRiesgo.textContent = "Riesgo No Elevado";
+        badgeRiesgo.className = "badge bg-warning text-dark";
+        motivoDerivacionWrapper.classList.remove("d-none");
+      }
+
+      evaluarBoton();
+    });
+
+    function evaluarBoton() {
+      if (!chkConsentimiento.checked) {
+        btnDerivar.disabled = true;
+        return;
+      }
+
+      if (ultimoRiesgo === "elevado") {
+        btnDerivar.disabled = false;
+      } else {
+        btnDerivar.disabled = !motivoDerivacion.value;
+      }
+    }
+
+    chkConsentimiento.addEventListener("change", evaluarBoton);
+    motivoDerivacion.addEventListener("change", evaluarBoton);
+
+    btnDerivar.addEventListener("click", () => {
+      const ticket = "REN-" + Math.floor(Math.random() * 900000 + 100000);
+      ticketNumero.textContent = ticket;
+      mensajeDerivacion.classList.remove("d-none");
+    });
+  </script>
 
 </body>
 </html>
