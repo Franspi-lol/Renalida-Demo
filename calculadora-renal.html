@@ -256,6 +256,8 @@
 
   <!-- JS -->
   <script>
+    
+
     const btnBuscarPaciente = document.getElementById('btnBuscarPaciente');
     const infoPaciente = document.getElementById('infoPaciente');
     const infoPacienteMensaje = document.getElementById('infoPacienteMensaje');
@@ -307,6 +309,10 @@
 
       creatininaInput.disabled = false;
       fechaAnalisisInput.disabled = false;
+      //btnCalcularRiesgo.disabled = false;
+
+    });
+    fechaAnalisisInput.addEventListener('change', () => {
       btnCalcularRiesgo.disabled = false;
     });
 
